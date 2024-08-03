@@ -14,5 +14,5 @@ export async function fetchGithubReadme(username: string) {
     }
   }
 
-  throw new Error("Failed to fetch README");
+  return null;
 }
