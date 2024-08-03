@@ -24,7 +24,7 @@
       {...$constraints.username}
       placeholder="Enter GitHub username"
     />
-    <button tabindex={3} disabled={$delayed}>
+    <button tabindex={3} disabled={$delayed} type="submit">
       {#if $delayed}
         Loading...
       {:else}
@@ -42,6 +42,9 @@
       {...$constraints.token}
       placeholder="Your GitHub Token (Optional)"
     />
+    <a href="https://github.com/settings/tokens">
+      <button type="button">Get Token</button>
+    </a>
   </form>
 
   {#if $message?.type === "success"}
@@ -51,7 +54,7 @@
     <h2>Error</h2>
     <p>{$message.text}</p>
   {:else if $delayed}
-    <h2>Please wait...</h2>
+    <p>Please wait...</p>
   {:else}
     <p>Enter a GitHub username to get started.</p>
   {/if}
