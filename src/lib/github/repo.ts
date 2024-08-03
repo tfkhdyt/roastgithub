@@ -11,9 +11,12 @@ type GithubRepo = {
 export async function fetchGithubRepos(username: string) {
   try {
     const response = await fetch(
-      `https://api.github.com/users/${username}/repos?sort=updated`
+      `https://api.github.com/users/${username}/repos?sort=updated`,
     );
     const data: GithubRepo[] = await response.json();
+    if (!Array.isArray(data) || !response.ok) {
+      throw new Error("Failed to fetch repositories from API");
+    }
 
     return data;
   } catch (error) {

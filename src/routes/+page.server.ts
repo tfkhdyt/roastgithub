@@ -32,17 +32,15 @@ export const actions = {
         followers: profile.followers,
         following: profile.following,
         public_repos: profile.public_repos,
-        repositories: repos
-          .map((repo) => ({
-            name: repo.name,
-            description: repo.description,
-            language: repo.language,
-            stargazers_count: repo.stargazers_count,
-            open_issues_count: repo.open_issues_count,
-            license: repo.license,
-            fork: repo.fork,
-          }))
-          .slice(0, 50),
+        repositories: repos.map((repo) => ({
+          name: repo.name,
+          description: repo.description,
+          language: repo.language,
+          stargazers_count: repo.stargazers_count,
+          open_issues_count: repo.open_issues_count,
+          license: repo.license,
+          fork: repo.fork,
+        })),
         readme,
       };
 
@@ -76,10 +74,10 @@ export const actions = {
       console.error(error);
 
       if (error instanceof Error) {
-        return message(form, error.message, { status: 400 });
+        return message(form, `Error: ${error.message}`, { status: 400 });
       }
 
-      return message(form, String(error), { status: 400 });
+      return message(form, `Error: ${String(error)}`, { status: 500 });
     }
   },
 } satisfies Actions;

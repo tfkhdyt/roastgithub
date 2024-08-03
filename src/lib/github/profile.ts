@@ -13,6 +13,9 @@ export async function fetchGithubProfile(username: string) {
   try {
     const response = await fetch(`https://api.github.com/users/${username}`);
     const data: GithubProfile = await response.json();
+    if (!response.ok) {
+      throw new Error("Failed to fetch profile from API");
+    }
 
     return data;
   } catch (error) {

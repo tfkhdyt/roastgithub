@@ -2,10 +2,10 @@ export async function fetchGithubReadme(username: string) {
   try {
     const readmes = await Promise.allSettled([
       fetch(
-        `https://raw.githubusercontent.com/${username}/${username}/main/README.md`
+        `https://raw.githubusercontent.com/${username}/${username}/main/README.md`,
       ),
       fetch(
-        `https://raw.githubusercontent.com/${username}/${username}/master/README.md`
+        `https://raw.githubusercontent.com/${username}/${username}/master/README.md`,
       ),
     ]);
 
@@ -14,6 +14,8 @@ export async function fetchGithubReadme(username: string) {
         return readme.value.text();
       }
     }
+
+    throw new Error("Failed to fetch README");
   } catch (error) {
     throw new Error("Failed to fetch README", { cause: error });
   }
