@@ -35,15 +35,17 @@ export const actions = {
         followers: profile.followers,
         following: profile.following,
         public_repos: profile.public_repos,
-        repositories: repos.map((repo) => ({
-          name: repo.name,
-          description: repo.description,
-          language: repo.language,
-          stargazers_count: repo.stargazers_count,
-          open_issues_count: repo.open_issues_count,
-          license: repo.license,
-          fork: repo.fork,
-        })),
+        repositories: repos
+          .map((repo) => ({
+            name: repo.name,
+            description: repo.description,
+            language: repo.language,
+            stargazers_count: repo.stargazers_count,
+            open_issues_count: repo.open_issues_count,
+            license: repo.license,
+            fork: repo.fork,
+          }))
+          .slice(0, 50),
         readme,
       };
 

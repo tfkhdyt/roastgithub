@@ -3,6 +3,7 @@
   import { superForm } from "sveltekit-superforms";
   import type { PageData } from "./$types";
   import SvelteMarkdown from "svelte-markdown";
+  import { token } from "../stores/token";
 
   export let data: PageData;
   const { form, errors, constraints, message, enhance, delayed } = superForm(
@@ -38,10 +39,10 @@
       <p>{$errors.username}</p>
     {/if}
     <input
-      type="text"
+      type="password"
       name="token"
       tabindex={2}
-      bind:value={$form.token}
+      bind:value={$token}
       {...$constraints.token}
       placeholder="Your GitHub Token (Optional)"
     />
