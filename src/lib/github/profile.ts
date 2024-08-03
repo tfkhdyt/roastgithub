@@ -9,6 +9,9 @@ type GithubProfile = {
   followers: number;
   following: number;
   public_repos: number;
+  blog: string;
+  created_at: string;
+  updated_at: string;
   repositories: unknown[];
 };
 

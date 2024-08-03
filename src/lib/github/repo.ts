@@ -9,6 +9,9 @@ type GithubRepo = {
   open_issues_count: number;
   license: string;
   fork: boolean;
+  created_at: string;
+  updated_at: string;
+  pushed_at: string;
 };
 
 export async function fetchGithubRepos(username: string, token: string | null) {

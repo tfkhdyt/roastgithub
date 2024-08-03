@@ -29,8 +29,11 @@ export const actions = {
 
       const data = {
         name: profile.name,
-        bio: profile.bio,
         company: profile.company,
+        blog: profile.blog,
+        created_at: profile.created_at,
+        updated_at: profile.updated_at,
+        bio: profile.bio,
         location: profile.location,
         followers: profile.followers,
         following: profile.following,
