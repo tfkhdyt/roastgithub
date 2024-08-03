@@ -1,10 +1,12 @@
-Backend API repo : https://github.com/bagusindrayana/roastgithub-api
-
 ## Local Development
+
 - Clone the repository
-- Run `npm install`
-- make .env file and add the following
+- Run `npm install` or `pnpm install`
+- Copy `.env.example` to `.env`
+- Set GEMINI_API_KEY in `.env`
+
 ```
-PUBLIC_API_URL=http://localhost:3001
+GEMINI_API_KEY='your-gemini-api-key'
 ```
-- Run `npm run dev`
+
+- Run `npm run dev` or `pnpm dev`
