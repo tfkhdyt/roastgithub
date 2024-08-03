@@ -26,7 +26,7 @@
     {#if $errors.username}
       <p>{$errors.username}</p>
     {/if}
-    <button>Submit</button>
+    <button disabled={$delayed}>Submit</button>
   </form>
 
   {#if !!$message}
