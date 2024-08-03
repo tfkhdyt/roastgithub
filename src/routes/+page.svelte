@@ -1,4 +1,5 @@
 <script lang="ts">
+  import "../app.css";
   import { superForm } from "sveltekit-superforms";
   import type { PageData } from "./$types";
   import SvelteMarkdown from "svelte-markdown";
@@ -47,8 +48,13 @@
   input {
     margin-right: 0.5em;
     padding: 0.5em;
+    background-color: #8a99ae;
+  }
+  input::placeholder {
+    color: rgb(67, 79, 96);
   }
   button {
     padding: 0.5em;
+    background-color: #8a99ae;
   }
 </style>
