@@ -1,3 +1,5 @@
+import { GITHUB_TOKEN } from "$env/static/private";
+
 type GithubRepo = {
   name: string;
   description: string;
@@ -12,6 +14,11 @@ export async function fetchGithubRepos(username: string) {
   try {
     const response = await fetch(
       `https://api.github.com/users/${username}/repos?sort=updated`,
+      {
+        headers: {
+          Authorization: `Bearer ${GITHUB_TOKEN}`,
+        },
+      },
     );
     const data: GithubRepo[] = await response.json();
     if (!Array.isArray(data) || !response.ok) {

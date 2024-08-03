@@ -1,3 +1,5 @@
+import { GITHUB_TOKEN } from "$env/static/private";
+
 type GithubProfile = {
   name: string;
   bio: string;
@@ -11,9 +13,13 @@ type GithubProfile = {
 
 export async function fetchGithubProfile(username: string) {
   try {
-    const response = await fetch(`https://api.github.com/users/${username}`);
+    const response = await fetch(`https://api.github.com/users/${username}`, {
+      headers: {
+        Authorization: `Bearer ${GITHUB_TOKEN}`,
+      },
+    });
     const data: GithubProfile = await response.json();
-    console.log(response);
+
     if (!response.ok) {
       throw new Error("Failed to fetch profile from API");
     }
