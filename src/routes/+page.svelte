@@ -6,7 +6,10 @@
 
   export let data: PageData;
   const { form, errors, constraints, message, enhance, delayed } = superForm(
-    data.form
+    data.form,
+    {
+      resetForm: false,
+    }
   );
 </script>
 
