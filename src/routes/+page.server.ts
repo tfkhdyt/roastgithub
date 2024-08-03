@@ -42,7 +42,6 @@ export const actions = {
             license: repo.license,
             fork: repo.fork,
           }))
-          .filter((repo) => repo.fork === false)
           .slice(0, 50),
         readme,
       };
