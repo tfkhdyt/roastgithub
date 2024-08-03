@@ -19,21 +19,39 @@
     <input
       type="text"
       name="username"
+      tabindex={1}
       bind:value={$form.username}
       {...$constraints.username}
       placeholder="Enter GitHub username"
     />
+    <button tabindex={3} disabled={$delayed}>
+      {#if $delayed}
+        Loading...
+      {:else}
+        Submit
+      {/if}
+    </button><br />
     {#if $errors.username}
       <p>{$errors.username}</p>
     {/if}
-    <button disabled={$delayed}>Submit</button>
+    <input
+      type="text"
+      name="token"
+      tabindex={2}
+      bind:value={$form.token}
+      {...$constraints.token}
+      placeholder="Your GitHub Token (Optional)"
+    />
   </form>
 
-  {#if !!$message}
+  {#if $message?.type === "success"}
     <h2>Roasting Result</h2>
-    <SvelteMarkdown source={$message} />
+    <SvelteMarkdown source={$message.text} />
+  {:else if $message?.type === "error"}
+    <h2>Error</h2>
+    <p>{$message.text}</p>
   {:else if $delayed}
-    <p>Loading...</p>
+    <h2>Please wait...</h2>
   {:else}
     <p>Enter a GitHub username to get started.</p>
   {/if}
@@ -49,6 +67,7 @@
     margin-right: 0.5em;
     padding: 0.5em;
     background-color: #8a99ae;
+    width: 200px;
   }
   input::placeholder {
     color: rgb(67, 79, 96);

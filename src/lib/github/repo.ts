@@ -1,4 +1,5 @@
 import { GITHUB_TOKEN } from "$env/static/private";
+import type { GitHubError } from "../../types/github";
 
 type GithubRepo = {
   name: string;
@@ -10,23 +11,25 @@ type GithubRepo = {
   fork: boolean;
 };
 
-export async function fetchGithubRepos(username: string) {
-  try {
-    const response = await fetch(
-      `https://api.github.com/users/${username}/repos?sort=updated`,
-      {
-        headers: {
-          Authorization: `Bearer ${GITHUB_TOKEN}`,
-        },
+export async function fetchGithubRepos(username: string, token: string | null) {
+  const response = await fetch(
+    `https://api.github.com/users/${username}/repos?sort=updated`,
+    {
+      headers: {
+        Authorization: `Bearer ${token ?? GITHUB_TOKEN}`,
       },
-    );
-    const data: GithubRepo[] = await response.json();
-    if (!Array.isArray(data) || !response.ok) {
-      throw new Error("Failed to fetch repositories from API");
     }
+  );
 
-    return data;
-  } catch (error) {
-    throw new Error("Failed to fetch repositories", { cause: error });
+  if (!response.ok) {
+    const errorData: GitHubError = await response.json();
+    throw new Error(errorData.message);
   }
+
+  const data: GithubRepo[] = await response.json();
+  if (!Array.isArray(data) || !response.ok) {
+    throw new Error("Failed to fetch repositories from API");
+  }
+
+  return data;
 }

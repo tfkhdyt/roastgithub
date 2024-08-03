@@ -20,8 +20,11 @@ export const actions = {
     }
 
     try {
-      const profile = await fetchGithubProfile(form.data.username);
-      const repos = await fetchGithubRepos(form.data.username);
+      const profile = await fetchGithubProfile(
+        form.data.username,
+        form.data.token
+      );
+      const repos = await fetchGithubRepos(form.data.username, form.data.token);
       const readme = await fetchGithubReadme(form.data.username);
 
       const data = {
@@ -69,15 +72,23 @@ export const actions = {
       const result = await model.generateContent(prompt);
       const response = result.response.text();
 
-      return message(form, response);
+      return message(form, { type: "success", text: response });
     } catch (error) {
       console.error(error);
 
       if (error instanceof Error) {
-        return message(form, `Error: ${error.message}`, { status: 400 });
+        return message(
+          form,
+          { type: "error", text: error.message },
+          { status: 400 }
+        );
       }
 
-      return message(form, `Error: ${String(error)}`, { status: 500 });
+      return message(
+        form,
+        { type: "error", text: String(error) },
+        { status: 500 }
+      );
     }
   },
 } satisfies Actions;

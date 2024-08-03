@@ -1,4 +1,5 @@
 import { GITHUB_TOKEN } from "$env/static/private";
+import type { GitHubError } from "../../types/github";
 
 type GithubProfile = {
   name: string;
@@ -11,21 +12,22 @@ type GithubProfile = {
   repositories: unknown[];
 };
 
-export async function fetchGithubProfile(username: string) {
-  try {
-    const response = await fetch(`https://api.github.com/users/${username}`, {
-      headers: {
-        Authorization: `Bearer ${GITHUB_TOKEN}`,
-      },
-    });
-    const data: GithubProfile = await response.json();
+export async function fetchGithubProfile(
+  username: string,
+  token: string | null
+): Promise<GithubProfile> {
+  const response = await fetch(`https://api.github.com/users/${username}`, {
+    headers: {
+      Authorization: `Bearer ${token ?? GITHUB_TOKEN}`,
+    },
+  });
 
-    if (!response.ok) {
-      throw new Error("Failed to fetch profile from API");
-    }
-
-    return data;
-  } catch (error) {
-    throw new Error("Failed to fetch profile", { cause: error });
+  if (!response.ok) {
+    const errorData: GitHubError = await response.json();
+    throw new Error(errorData.message);
   }
+
+  const data: GithubProfile = await response.json();
+
+  return data;
 }
