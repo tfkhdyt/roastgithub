@@ -42,11 +42,11 @@ export const actions = {
             license: repo.license,
             fork: repo.fork,
           }))
+          .filter((repo) => repo.fork === false)
           .slice(0, 50),
         readme,
       };
 
-      // Buat prompt untuk Gemini AI
       let prompt = `Berikan roasting singkat dengan kejam dan menyindir dalam bahasa gaul untuk profile github berikut: ${
         form.data.username
       }. Berikut detailnya: "${JSON.stringify(data)}"`;
