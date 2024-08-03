@@ -3,7 +3,7 @@
   import { superForm } from "sveltekit-superforms";
   import type { PageData } from "./$types";
   import SvelteMarkdown from "svelte-markdown";
-  import { token } from "../stores/token";
+  // import { token } from "../stores/token";
 
   export let data: PageData;
   const { form, errors, constraints, message, enhance, delayed } = superForm(
@@ -38,7 +38,7 @@
     {#if $errors.username}
       <p>{$errors.username}</p>
     {/if}
-    <input
+    <!-- <input
       type="password"
       name="token"
       tabindex={2}
@@ -48,7 +48,7 @@
     />
     <a href="https://github.com/settings/tokens">
       <button type="button">Get Token</button>
-    </a>
+    </a> -->
   </form>
 
   {#if $message?.type === "success"}
