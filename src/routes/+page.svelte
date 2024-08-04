@@ -23,7 +23,7 @@
 </svelte:head>
 
 <main
-  class="container mx-auto max-w-3xl py-16 font-sans min-h-screen flex flex-col justify-between"
+  class="container mx-auto max-w-3xl py-16 font-sans min-h-svh flex flex-col justify-between"
 >
   <div class="space-y-6">
     <H1>GitHub Profile Roasting 🔥🔥🔥</H1>
