@@ -6,6 +6,7 @@ import { fetchGithubProfile } from "$lib/github/profile";
 import { fetchGithubRepos } from "$lib/github/repo";
 import { fetchGithubReadme } from "$lib/github/readme";
 import { generateAnswer } from "$lib/gemini/prompt";
+import { limiter } from "$lib/rate-limit";
 
 export const load = async () => {
   const form = await superValidate(zod(usernameSchema));
@@ -13,16 +14,24 @@ export const load = async () => {
 };
 
 export const actions = {
-  default: async ({ request }) => {
-    const form = await superValidate(request, zod(usernameSchema));
+  default: async (event) => {
+    const form = await superValidate(event.request, zod(usernameSchema));
     if (!form.valid) {
       return fail(400, { form });
     }
 
     try {
+      if (await limiter.isLimited(event)) {
+        return message(
+          form,
+          { type: "error", text: "Too many requests, please try again later." },
+          { status: 429 }
+        );
+      }
+
       const profile = await fetchGithubProfile(
         form.data.username,
-        form.data.token,
+        form.data.token
       );
       const repos = await fetchGithubRepos(form.data.username, form.data.token);
       const readme = await fetchGithubReadme(form.data.username);
@@ -67,14 +76,14 @@ export const actions = {
         return message(
           form,
           { type: "error", text: error.message },
-          { status: 400 },
+          { status: 400 }
         );
       }
 
       return message(
         form,
         { type: "error", text: String(error) },
-        { status: 500 },
+        { status: 500 }
       );
     }
   },
