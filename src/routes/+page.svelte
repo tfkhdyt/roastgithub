@@ -1,8 +1,10 @@
 <script lang="ts">
-  import "../app.css";
   import { superForm } from "sveltekit-superforms";
   import type { PageData } from "./$types";
   import SvelteMarkdown from "svelte-markdown";
+  import { Input } from "$lib/components/ui/input";
+  import { Button } from "$lib/components/ui/button";
+  import { LoaderCircle } from "lucide-svelte";
   // import { token } from "../stores/token";
 
   export let data: PageData;
@@ -17,24 +19,30 @@
 <svelte:head>
   <title>GitHub Profile Roasting 🔥🔥🔥</title>
 </svelte:head>
-<main>
-  <h1>GitHub Profile Roasting 🔥🔥🔥</h1>
-  <form method="post" use:enhance>
-    <input
-      type="text"
-      name="username"
-      tabindex={1}
-      bind:value={$form.username}
-      {...$constraints.username}
-      placeholder="Enter GitHub username"
-    />
-    <button tabindex={3} disabled={$delayed} type="submit">
-      {#if $delayed}
-        Loading...
-      {:else}
-        Submit
+<main class="container mx-auto max-w-3xl py-16 space-y-6 font-sans">
+  <h1 class="text-4xl font-bold">GitHub Profile Roasting 🔥🔥🔥</h1>
+  <form method="post" use:enhance class="flex space-x-2 items-center">
+    <div>
+      <Input
+        type="text"
+        name="username"
+        tabindex={1}
+        bind:value={$form.username}
+        {...$constraints.username}
+        placeholder="Enter GitHub username"
+        class="max-w-md"
+      />
+      {#if $errors.username}
+        <p class="text-red-500 text-sm">{$errors.username}</p>
       {/if}
-    </button><br />
+    </div>
+    <Button tabindex={3} disabled={$delayed} type="submit">
+      {#if $delayed}
+        <LoaderCircle class="animate-spin" />
+      {:else}
+        Roast 🔥
+      {/if}
+    </Button><br />
     {#if $errors.username}
       <p>{$errors.username}</p>
     {/if}
@@ -51,36 +59,17 @@
     </a> -->
   </form>
 
-  {#if $message?.type === "success"}
-    <h2>Roasting Result</h2>
-    <SvelteMarkdown source={$message.text} />
-  {:else if $message?.type === "error"}
-    <h2>Error</h2>
-    <p>{$message.text}</p>
-  {:else if $delayed}
-    <p>Please wait...</p>
-  {:else}
-    <p>Enter a GitHub username to get started.</p>
-  {/if}
+  <div class="space-y-2 leading-relaxed">
+    {#if $delayed}
+      <p>Please wait...</p>
+    {:else if $message?.type === "success"}
+      <h2 class="text-2xl font-semibold">Roasting Result</h2>
+      <SvelteMarkdown source={$message.text} />
+    {:else if $message?.type === "error"}
+      <h2 class="text-2xl font-semibold">Error</h2>
+      <p>{$message.text}</p>
+    {:else}
+      <p>Enter a GitHub username to get started.</p>
+    {/if}
+  </div>
 </main>
-
-<style>
-  main {
-    padding: 1em;
-    max-width: 800px;
-    margin: 0 auto;
-  }
-  input {
-    margin-right: 0.5em;
-    padding: 0.5em;
-    background-color: #8a99ae;
-    width: 200px;
-  }
-  input::placeholder {
-    color: rgb(67, 79, 96);
-  }
-  button {
-    padding: 0.5em;
-    background-color: #8a99ae;
-  }
-</style>
