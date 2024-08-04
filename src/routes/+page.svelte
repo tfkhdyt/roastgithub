@@ -70,6 +70,8 @@
       <p>{$message.text}</p>
     {:else}
       <p>Enter a GitHub username to get started.</p>
+      <p>Author : Taufik Hidayat</p>
+      <p>Repo : https://github.com/taufikhidayat/roastgithub</p>
     {/if}
   </div>
 </main>
