@@ -24,7 +24,7 @@
 </svelte:head>
 
 <main
-  class="container mx-auto max-w-3xl py-8 md:py-16 font-sans min-h-svh grid grid-rows-[1fr_auto] gap-8"
+  class="container mx-auto max-w-3xl py-8 md:py-16 font-sans min-h-dvh grid grid-rows-[1fr_auto] space-y-8"
 >
   <div class="space-y-6">
     <H1>GitHub Profile Roasting 🔥🔥🔥</H1>
@@ -45,7 +45,7 @@
     />
   </div>
 
-  <p class="text-center text-sm text-slate-500">
+  <footer class="text-center text-sm text-slate-500">
     Forked by
     <FooterLink href="https://github.com/tfkhdyt" newTab>tfkhdyt</FooterLink>
     |
@@ -71,5 +71,5 @@
         />
       </Dialog.Content>
     </Dialog.Root>
-  </p>
+  </footer>
 </main>
