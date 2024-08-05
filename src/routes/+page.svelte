@@ -64,11 +64,13 @@
             If you like this project, please consider donating to support me.
           </Dialog.Description>
         </Dialog.Header>
-        <enhanced:img
-          src="../assets/images/saweria.png"
-          alt="QRIS"
-          class="w-72 h-auto mx-auto"
-        />
+        <a href="https://saweria.co/tfkhdyt" target="_blank">
+          <enhanced:img
+            src="../assets/images/saweria.png"
+            alt="QRIS"
+            class="w-72 h-auto mx-auto"
+          />
+        </a>
       </Dialog.Content>
     </Dialog.Root>
   </footer>
