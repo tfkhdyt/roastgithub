@@ -29,12 +29,11 @@ export const actions = {
         );
       }
 
-      const profile = await fetchGithubProfile(
-        form.data.username,
-        form.data.token
-      );
-      const repos = await fetchGithubRepos(form.data.username, form.data.token);
-      const readme = await fetchGithubReadme(form.data.username);
+      const [profile, repos, readme] = await Promise.all([
+        fetchGithubProfile(form.data.username, form.data.token),
+        fetchGithubRepos(form.data.username, form.data.token),
+        fetchGithubReadme(form.data.username),
+      ]);
 
       const data = {
         name: profile.name,
