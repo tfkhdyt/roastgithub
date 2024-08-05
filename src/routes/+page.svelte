@@ -6,7 +6,7 @@
   import SubmitButton from "$lib/components/button/SubmitButton.svelte";
   import RoastOutput from "$lib/output/RoastOutput.svelte";
   import FooterLink from "$lib/components/anchor/FooterLink.svelte";
-  import * as Dialog from "$lib/components/ui/dialog";
+  import DonationDialog from "$lib/components/dialog/DonationDialog.svelte";
   // import { token } from "../stores/token";
 
   export let data: PageData;
@@ -52,26 +52,6 @@
     <FooterLink href="https://github.com/tfkhdyt/roastgithub" newTab
       >Source Code</FooterLink
     > |
-    <Dialog.Root>
-      <Dialog.Trigger
-        class="underline hover:text-slate-400 transition font-semibold"
-        >Support Me</Dialog.Trigger
-      >
-      <Dialog.Content class="space-y-2">
-        <Dialog.Header>
-          <Dialog.Title>Donation</Dialog.Title>
-          <Dialog.Description>
-            If you like this project, please consider donating to support me.
-          </Dialog.Description>
-        </Dialog.Header>
-        <a href="https://saweria.co/tfkhdyt" target="_blank">
-          <enhanced:img
-            src="../assets/images/saweria.png"
-            alt="QRIS"
-            class="w-72 h-auto mx-auto"
-          />
-        </a>
-      </Dialog.Content>
-    </Dialog.Root>
+    <DonationDialog>Support Me</DonationDialog>
   </footer>
 </main>
