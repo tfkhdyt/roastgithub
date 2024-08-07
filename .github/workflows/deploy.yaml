@@ -1,0 +1,23 @@
+name: Deployment
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.HOST }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.KEY }}
+        script: |
+          set -e
+          cd ~/roastgithub
+          git pull
+          npx pnpm i
+          npm run build
+          pm2 startOrReload ecosystem.config.cjs
