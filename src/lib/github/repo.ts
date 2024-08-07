@@ -1,4 +1,4 @@
-import { GITHUB_TOKEN } from "$env/static/private";
+import { env } from "$env/dynamic/private";
 import type { GitHubError } from "../../types/github";
 
 type GithubRepo = {
@@ -19,7 +19,7 @@ export async function fetchGithubRepos(username: string, token: string | null) {
     `https://api.github.com/users/${username}/repos?sort=updated`,
     {
       headers: {
-        Authorization: `Bearer ${token ?? GITHUB_TOKEN}`,
+        Authorization: `Bearer ${token ?? env.GITHUB_TOKEN}`,
       },
     }
   );
