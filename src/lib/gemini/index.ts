@@ -1,4 +1,4 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
-import { env } from "$env/dynamic/private";
+import { GEMINI_API_KEY } from "$env/static/private";
 
-export const genAI = new GoogleGenerativeAI(env.GEMINI_API_KEY);
+export const genAI = new GoogleGenerativeAI(GEMINI_API_KEY);

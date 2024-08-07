@@ -1,4 +1,4 @@
-import { env } from "$env/dynamic/private";
+import { GITHUB_TOKEN } from "$env/static/private";
 import type { GitHubError } from "../../types/github";
 
 type GithubProfile = {
@@ -21,7 +21,7 @@ export async function fetchGithubProfile(
 ): Promise<GithubProfile> {
   const response = await fetch(`https://api.github.com/users/${username}`, {
     headers: {
-      Authorization: `Bearer ${token ?? env.GITHUB_TOKEN}`,
+      Authorization: `Bearer ${token ?? GITHUB_TOKEN}`,
     },
   });
 
