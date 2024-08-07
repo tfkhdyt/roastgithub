@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: "roast-github",
-      script: "build/index.js",
+      script: "node -r dotenv/config build",
       exec_mode: "cluster",
       instances: "max",
     },
