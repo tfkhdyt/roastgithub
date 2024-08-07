@@ -7,6 +7,15 @@ import { fetchGithubRepos } from "$lib/github/repo";
 import { fetchGithubReadme } from "$lib/github/readme";
 import { generateAnswer } from "$lib/gemini/prompt";
 import { limiter } from "$lib/rate-limit";
+import process from "process";
+
+process.on("uncaughtException", (err) => {
+  console.error("Uncaught exception at:", err.message);
+});
+
+process.on("unhandledRejection", (reason) => {
+  console.error("Unhandled rejection at:", String(reason));
+});
 
 export const load = async () => {
   const form = await superValidate(zod(usernameSchema));
